@@ -1,7 +1,10 @@
 package com.github.ticktakclock.sharedelementsample
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ticktakclock.sharedelementsample.databinding.ActivityMainBinding
@@ -27,7 +30,12 @@ class MainActivity : AppCompatActivity() {
         controller.setData(Photo.fetchAll())
     }
 
-    private fun onPhotoClicked(photo: Photo) {
-        startActivity(DetailActivity.createIntent(this, photo.id))
+    private fun onPhotoClicked(view: View, photo: Photo) {
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, "photo")
+        ActivityCompat.startActivity(
+            this,
+            DetailActivity.createIntent(this, photo.id),
+            options.toBundle()
+        )
     }
 }

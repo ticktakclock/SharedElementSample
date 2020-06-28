@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    <changeImageTransform/>-->
+    <!-- changeBounds is used for the TextViews which are shared -->
+    <changeBounds />
+
+    <!-- changeImageTransform is used for the ImageViews which are shared -->
+    <changeImageTransform />
+    <targets>
+        <!-- if using a custom Toolbar container, specify the ID of the AppBarLayout -->
+        <!--    AppBarを使っている場合これもTransition除外対象とする    -->
+        <!--        <target android:excludeId="@id/app_bar_layout" />-->
+        <target android:excludeId="@android:id/statusBarBackground" />
+        <target android:excludeId="@android:id/navigationBarBackground" />
+    </targets>
+</transitionSet>
