@@ -1,17 +1,20 @@
 package com.github.ticktakclock.sharedelementsample
 
+import android.view.View
 import com.airbnb.epoxy.TypedEpoxyController
 
-class PhotoController : TypedEpoxyController<List<Photo>>() {
+class PhotoController(private val onPhotoClicked: (Photo) -> Unit) :
+    TypedEpoxyController<List<Photo>>() {
 
     override fun buildModels(data: List<Photo>?) {
         data ?: return
 
-        data.forEach {
+        data.forEach { photo ->
             photo {
                 id(modelCountBuiltSoFar)
-                title(it.title)
-                imageUrl(it.imageUrl)
+                title(photo.title)
+                imageUrl(photo.imageUrl)
+                onClick(View.OnClickListener { onPhotoClicked(photo) })
             }
         }
     }
