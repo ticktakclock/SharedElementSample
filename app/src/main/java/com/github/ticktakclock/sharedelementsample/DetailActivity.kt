@@ -4,31 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import com.github.ticktakclock.sharedelementsample.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        ViewCompat.setTransitionName(binding.imageView3, "photo")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val id = intent?.extras?.getInt("id", 0)
-        id?.let {
-            val photo = Photo.find(it)
-            photo?.let { photo ->
-                binding.imageUrl = photo.imageUrl
-                binding.title = photo.title
-            }
-        }
+        DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail)
+        val id = intent?.extras?.getInt("id", 0) ?: 0
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, DetailFragment.newInstance(id))
+            .commit()
     }
 
     companion object {
